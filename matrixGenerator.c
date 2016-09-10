@@ -1,6 +1,7 @@
 #include "matrixGenerator.h"
+#include "fileManager.h"
 
-FILE* openFile(char *name);
+
 int runningDir(char *path, int size);
 void generateMatrix(FILE *file, int, int);
 
@@ -8,8 +9,8 @@ void generateMatrices(int numRows, int numColumns, int numColumns2) {
     FILE *fileA, *fileB;
 
     //open file output stream
-    fileA = openFile(FILE_A);
-    fileB = openFile(FILE_B);
+    fileA = openFile(FILE_A, "w");
+    fileB = openFile(FILE_B, "w");
 
     //set random seed based on time
     srand(time(NULL));
@@ -39,25 +40,3 @@ void generateMatrix(FILE *file, int rows, int columns) {
 
 }
 
-FILE* openFile(char *name) {
-    FILE *pFile;
-    char path[1024];
-    int success;
-
-    success = runningDir(path, sizeof(path));   
-    if(success) {
-        strcat(path, "/data/");
-        strcat(path, name);
-        pFile = fopen(path, "w");
-        return pFile;
-    } 
-
-    return 0;
-}
-
-int runningDir(char *path, int size) {
-    if (getcwd(path, size) != NULL)
-        return 1;
-    perror("getcwd() error");
-    return 0;
-}

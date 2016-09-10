@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include "matrixGenerator.h"
+#include "multiplyMatrices.h"
 
 int convertArgvParamsToInt(char *argv[], int *x, int *y, int *z);
 
@@ -12,7 +13,11 @@ int main(int argc, char *argv[]) {
         int success = convertArgvParamsToInt(argv,&numRows,&numColumns, &numColumns2);
 
         if(success) {
+            //generate matrices
             generateMatrices(numRows, numColumns, numColumns2);
+
+            //multiply matrices using a single process
+            singleProcessMul();
         }else {
             printf("Arguments must be Numbers!\n");
         }
