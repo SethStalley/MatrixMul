@@ -3,6 +3,7 @@
 int **researveMemoryForMatrix(int **matrix, int n, int m);
 void freeMatrix(int **matrix, int rows);
 void printMatrix(int **matrix, int rows, int columns);
+void writeMatrixToFile(int **matrix, int rows, int columns);
 
 //Loads matrix from file into a 2D array, array must be freed after use
 int **loadMatrix(int **ptr_Matrix, char *name, int *rows, int *columns) {
@@ -49,6 +50,8 @@ void singleProcessMul() {
         }
     }
 
+    writeMatrixToFile(matrixC, rowsA, columnsB);
+
     //free our memory
     freeMatrix(matrixA, rowsA);
     freeMatrix(matrixB, rowsB);
@@ -81,6 +84,22 @@ void printMatrix(int **matrix, int rows, int columns) {
             printf("%d\t", matrix[i][j]);
         }
         printf("\n");
+    }
+}
+
+void writeMatrixToFile(int **matrix, int rows, int columns) {
+    FILE *file;
+    //open file for writting
+    file = openFile(FILE_C, "w");
+
+    //print file header
+    fprintf(file,"%d %d\n", rows,columns);
+
+    for(int i=0; i<rows; i++) {
+        for(int j=0; j<columns; j++) {
+            fprintf(file,"%d ",matrix[i][j]);
+        }
+        fprintf(file,"\n");
     }
 }
 
