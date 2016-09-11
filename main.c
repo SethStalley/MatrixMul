@@ -18,6 +18,9 @@ int main(int argc, char *argv[]) {
 
             //multiply matrices using a single process
             singleProcessMul();
+
+            //finally using multiple processes
+            multiProcessMul();
         }else {
             printf("Arguments must be Numbers!\n");
         }
