@@ -7,6 +7,10 @@
 #include <sys/mman.h>
 #include "fileManager.h"
 
+struct timespec start, finish;
+double elapsed;
+
+
 void singleProcessMul();
 void multiProcessMul();
 

@@ -43,7 +43,7 @@ void singleProcessMul() {
     matrixC = researveMemoryForMatrix(matrixC, rowsA, columnsB);
 
     //time the process
-    clock_t begin = clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     //multiply
     for (int i=0; i< rowsA; i++) {
@@ -56,8 +56,11 @@ void singleProcessMul() {
         }
     }
 
-    clock_t end = clock();
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    clock_gettime(CLOCK_MONOTONIC, &finish);
+    elapsed = (finish.tv_sec - start.tv_sec);
+    elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
+
+    double time_spent = elapsed;
     printf("Single Process Mul Time in Sec: %f\n", time_spent);
 
     writeMatrixToFile(matrixC, rowsA, columnsB);
@@ -81,7 +84,7 @@ void multiProcessMul() {
     matrixC = researveGlobalMemoryForMatrix(global_matrix, rowsA, columnsB);
 
     //time the process
-    clock_t begin = clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     //multiply
     for (int i=0; i< rowsA; i++) {
@@ -110,9 +113,11 @@ void multiProcessMul() {
     int status;
     waitpid(-1,&status,WNOHANG);
 
-    clock_t end = clock();
+    clock_gettime(CLOCK_MONOTONIC, &finish);
+    elapsed = (finish.tv_sec - start.tv_sec);
+    elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    double time_spent = elapsed;
     printf("Multiple Process Mul Time in Sec: %f\n", time_spent);
 
     writeMatrixToFile(matrixC, rowsA, columnsB);
