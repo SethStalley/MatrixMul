@@ -1,3 +1,9 @@
 *.o
 matrixMul
 .DS_Store
+
+data/A
+
+data/B
+
+data/C
